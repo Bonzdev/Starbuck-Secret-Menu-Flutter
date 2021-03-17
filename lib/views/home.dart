@@ -141,29 +141,6 @@ class _HomePageState extends State<HomePage> {
                       child: ChoiceCard(menu: _menu[index], idx: index),
                     );
                   })),
-              FutureBuilder(
-                  future: _menusRef.once(),
-                  builder: (context, AsyncSnapshot<DataSnapshot> snapshot) {
-                    if (snapshot.hasData) {
-                      // _menu.clear();
-                      // List<dynamic> data = snapshot.data.value;
-
-                      // data.forEach((element) {
-                      //   if (element != null) {
-                      //     _menu.add(Menu.fromMap(element));
-                      //   }
-                      // });
-                      return new ListView.builder(
-                          shrinkWrap: true,
-                          itemCount: _menu.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            return Center(
-                              child: ChoiceCard(menu: _menu[index], idx: index),
-                            );
-                          });
-                    }
-                    return CircularProgressIndicator();
-                  })
             ],
           )),
     );
