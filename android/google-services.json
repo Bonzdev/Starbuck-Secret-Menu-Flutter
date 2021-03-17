@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "359253203345",
+    "firebase_url": "https://starbucksecret-3fa35-default-rtdb.firebaseio.com",
+    "project_id": "starbucksecret-3fa35",
+    "storage_bucket": "starbucksecret-3fa35.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:359253203345:android:6dd1b7374615a1a0fbe230",
+        "android_client_info": {
+          "package_name": "com.example.starbucksecret"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "359253203345-2kkb5fkd0if20fvlhdrh2ihb081hkhf8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCJ9hshv5z5SDmxsgj7tnpUkB3hkVEh6Qk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "359253203345-2kkb5fkd0if20fvlhdrh2ihb081hkhf8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
