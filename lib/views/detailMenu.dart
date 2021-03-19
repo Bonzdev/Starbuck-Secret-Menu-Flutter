@@ -44,16 +44,16 @@ class _DetailMenuState extends State<DetailMenu>
 
   @override
   Widget build(BuildContext context) {
-    var data = _query.getMenu(widget.id);
+    // var data = _query.getMenu(widget.id);
 
     setState(() {
-      theImage = Image.network(
-        data.imgUrl,
-        fit: BoxFit.cover,
-      );
-      precacheImage(theImage.image, context);
-      _title = data.name;
-      _description = data.description;
+      // theImage = Image.network(
+      //   data.imgUrl,
+      //   fit: BoxFit.cover,
+      // );
+      // precacheImage(theImage.image, context);
+      // _title = data.name;
+      // _description = data.description;
     });
     return Scaffold(
         body: DefaultTabController(

@@ -1,30 +1,30 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_database/firebase_database.dart';
 
 class Menu {
   String id;
   String name;
   String imgUrl;
   String description;
-  String recipe;
+  List<dynamic> recipe;
   String type;
 
   Menu(this.name, this.description, this.recipe, this.type, this.imgUrl);
   Menu.fromQueryDocumentSnapshot(DocumentSnapshot snapshot)
-      : name = snapshot["name"],
+      : id = snapshot.id,
+        name = snapshot["name"],
         description = snapshot["description"],
-        recipe = "",
+        recipe = snapshot['recipe'],
         type = snapshot["category"],
         imgUrl = snapshot["imgurl"];
 
   toJson() {
     return {
       "id": id,
-      "imgUrl": imgUrl,
+      "imgurl": imgUrl,
       "name": name,
       "description": description,
-      "type": type,
-      "recipe": ""
+      "category": type,
+      "recipe": recipe
     };
   }
 }

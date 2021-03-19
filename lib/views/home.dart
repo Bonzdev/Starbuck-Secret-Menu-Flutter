@@ -1,9 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:fab_circular_menu/fab_circular_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:starbucksecret/models/Menu.dart';
-import 'package:starbucksecret/views/components/textView.dart';
+import 'package:starbucksecret/views/components/text_view.dart';
 import 'package:starbucksecret/configuration.dart';
 import 'package:flutter/foundation.dart';
 import 'package:starbucksecret/dao/menuDao.dart';
@@ -22,65 +21,24 @@ class _HomePageState extends State<HomePage> {
   List<Map<dynamic, dynamic>> lists = [];
 
   MenuDao _query = new MenuDao();
-  List<Menu> _menus = [];
-  var queryResultSet = [];
-  var tempSearchStore = [];
+  List<String> listID = [];
   String search = '';
   //firestore
 
   @override
   void initState() {
     super.initState();
-    final FirebaseDatabase database = FirebaseDatabase.instance;
-
-    // _menuRef = database.reference().child('menus');
-
-    // _menuRef.onChildAdded.listen(_onEntryAdded);
-    // _menuRef.onChildChanged.listen(_onEntryChanged);
-  }
-
-  //
-  initiateSearch(value) {
-    if (value.length == 0) {
-      setState(() {
-        queryResultSet = [];
-        tempSearchStore = [];
-      });
-    }
-
-    var capitalizedValue =
-        value.substring(0, 1).toUpperCase() + value.substring(1);
-    if (queryResultSet.length == 0 && value.length == 1) {
-      // _query.searchByName(value).then((QuerySnapshot docs) {
-      //   for (int i = 0; i < docs.docs.length; ++i) {
-      //     queryResultSet.add(docs.docs[i].data);
-      //   }
-      //   print(queryResultSet);
-      // });
-      print("masuk1");
-    } else {
-      tempSearchStore = [];
-      queryResultSet.forEach((element) {
-        if (element['businessName'].startsWith(capitalizedValue)) {
-          setState(() {
-            tempSearchStore.add(element);
-          });
-        }
-      });
-    }
+    _query.ambilData().then((value) => {
+          value.forEach((element) {
+            listID.add(element['id']);
+          })
+        });
   }
 
   onSearchTextChanged(String text) async {
     setState(() {
       search = text;
     });
-    // setState(() {
-    //   _menus = _query
-    //       .getAllMenu()
-    //       .where((element) =>
-    //           element.name.toLowerCase().contains(text.toLowerCase()))
-    //       .toList();
-    // });
   }
 
   @override
@@ -125,8 +83,9 @@ class _HomePageState extends State<HomePage> {
                 icon: Icon(Icons.casino, color: Colors.white),
                 onPressed: () {
                   var random = new Random();
+                  var randomID = listID[random.nextInt(listID.length)];
                   Navigator.pushNamed(context, '/menu-detail',
-                      arguments: random.nextInt(2));
+                      arguments: randomID);
                 }),
             IconButton(
                 icon: Icon(
@@ -134,12 +93,7 @@ class _HomePageState extends State<HomePage> {
                   color: Colors.white,
                 ),
                 onPressed: () {
-                  // _launchURL(0);
                   launchURL("https://www.buymeacoffee.com/secretsrecipe");
-                  //
-                  // FirebaseFirestore.instance
-                  //     .collection("menus")
-                  //     .add({'timestamp': Timestamp.fromDate(DateTime.now())});
                 }),
           ]),
       appBar: AppBar(
