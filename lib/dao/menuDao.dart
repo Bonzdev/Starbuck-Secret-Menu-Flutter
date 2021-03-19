@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:starbucksecret/models/Menu.dart';
 import 'package:firebase_database/firebase_database.dart';
 
@@ -26,8 +27,12 @@ class MenuDao {
   //   return list;
   // }
 
-  Menu getMenu(int idx) {
-    Menu menu = menus[idx];
+  Menu getMenu(String id) {
+    Menu menu = menus[0];
     return menu;
+  }
+
+  Stream<DocumentSnapshot> getMenus(String id) {
+    return FirebaseFirestore.instance.collection('menus').doc(id).snapshots();
   }
 }

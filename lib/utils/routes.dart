@@ -9,7 +9,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case '/menu-detail':
       return PageRouteBuilder(
           pageBuilder: (_, __, ___) => DetailMenu(
-                no: settings.arguments,
+                id: settings.arguments,
               ),
           transitionsBuilder: (_, a, __, c) =>
               FadeTransition(opacity: a, child: c));

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:fab_circular_menu/fab_circular_menu.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +18,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   TextEditingController _controller = new TextEditingController();
+  final FirebaseFirestore firestore = FirebaseFirestore.instance;
   DatabaseReference _menuRef;
   final _menusRef = FirebaseDatabase.instance.reference().child('menus');
   List<Menu> _menus = [];
@@ -25,30 +27,21 @@ class _HomePageState extends State<HomePage> {
   MenuDao _query = new MenuDao();
   List<Menu> _menu = [];
 
+  //firestore
+
   @override
   void initState() {
     super.initState();
     final FirebaseDatabase database = FirebaseDatabase.instance;
-    _menuRef = database.reference().child('menus');
     _menus = _query.getAllMenu();
-    _menuRef.onChildAdded.listen(_onEntryAdded);
-    _menuRef.onChildChanged.listen(_onEntryChanged);
+
+    // _menuRef = database.reference().child('menus');
+
+    // _menuRef.onChildAdded.listen(_onEntryAdded);
+    // _menuRef.onChildChanged.listen(_onEntryChanged);
   }
 
-  _onEntryAdded(Event event) {
-    setState(() {
-      _menu.add(Menu.fromSnapshot(event.snapshot));
-    });
-  }
-
-  _onEntryChanged(Event event) {
-    var old = _menu.singleWhere((entry) {
-      return entry.id == event.snapshot.key;
-    });
-    setState(() {
-      _menu[_menu.indexOf(old)] = Menu.fromSnapshot(event.snapshot);
-    });
-  }
+  //
 
   onSearchTextChanged(String text) async {
     setState(() {
@@ -113,6 +106,10 @@ class _HomePageState extends State<HomePage> {
                 onPressed: () {
                   // _launchURL(0);
                   launchURL("https://www.buymeacoffee.com/secretsrecipe");
+                  //
+                  // FirebaseFirestore.instance
+                  //     .collection("menus")
+                  //     .add({'timestamp': Timestamp.fromDate(DateTime.now())});
                 }),
           ]),
       appBar: AppBar(
@@ -133,14 +130,28 @@ class _HomePageState extends State<HomePage> {
                   onSearchTextChanged(val);
                 },
               ),
-              ListView(
-                  shrinkWrap: true,
-                  // padding: const EdgeInsets.all(5.0),
-                  children: List.generate(_menu.length, (index) {
-                    return Center(
-                      child: ChoiceCard(menu: _menu[index], idx: index),
-                    );
-                  })),
+              Expanded(
+                child: StreamBuilder(
+                  stream: FirebaseFirestore.instance
+                      .collection("menus")
+                      .snapshots(),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<QuerySnapshot> snapshot) {
+                    if (!snapshot.hasData) {
+                      return Center(child: CircularProgressIndicator());
+                    }
+                    return ListView(
+                        children:
+                            snapshot.data.docs.map((DocumentSnapshot document) {
+                      return Center(
+                        child: ChoiceCard(
+                            menu: Menu.fromQueryDocumentSnapshot(document),
+                            idx: document.id),
+                      );
+                    }).toList());
+                  },
+                ),
+              )
             ],
           )),
     );
@@ -153,7 +164,7 @@ class ChoiceCard extends StatelessWidget {
       : super(key: key);
   final VoidCallback onTap;
   final Menu menu;
-  final int idx;
+  final String idx;
   @override
   Widget build(BuildContext context) {
     return Card(

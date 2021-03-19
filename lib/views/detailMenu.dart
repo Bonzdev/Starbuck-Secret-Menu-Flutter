@@ -6,9 +6,9 @@ import 'package:starbucksecret/dao/menuDao.dart';
 import 'package:starbucksecret/views/components/menu_title.dart';
 
 class DetailMenu extends StatefulWidget {
-  final int no;
+  final String id;
 
-  DetailMenu({Key key, this.no}) : super(key: key);
+  DetailMenu({Key key, this.id}) : super(key: key);
   @override
   _DetailMenuState createState() => _DetailMenuState();
 }
@@ -42,7 +42,7 @@ class _DetailMenuState extends State<DetailMenu>
 
   @override
   Widget build(BuildContext context) {
-    var data = _query.getMenu(widget.no);
+    var data = _query.getMenu(widget.id);
 
     setState(() {
       theImage = Image.network(

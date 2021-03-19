@@ -1,11 +1,14 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:starbucksecret/configuration.dart';
 import 'package:starbucksecret/utils/routes.dart' as router;
 import 'package:starbucksecret/views/home.dart';
 
-void main() {
+void main() async {
   // readData();
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
