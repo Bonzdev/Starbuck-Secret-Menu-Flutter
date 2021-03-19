@@ -1,15 +1,13 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-
 import 'package:starbucksecret/configuration.dart';
-import 'package:starbucksecret/dao/menuDao.dart';
+import 'package:starbucksecret/dao/menu_dao.dart';
 import 'package:starbucksecret/models/Menu.dart';
 import 'package:starbucksecret/views/components/menu_title.dart';
+import 'package:starbucksecret/views/components/ingredients_view.dart';
+import 'package:starbucksecret/views/components/description_view.dart';
 
 class DetailMenu extends StatefulWidget {
   final String id;
-
   DetailMenu({Key key, this.id}) : super(key: key);
   @override
   _DetailMenuState createState() => _DetailMenuState();
@@ -20,11 +18,6 @@ class _DetailMenuState extends State<DetailMenu>
   MenuDao _query = new MenuDao();
   ScrollController _scrollController;
   TabController _tabController;
-  final _menusRef = FirebaseDatabase.instance.reference().child('menus');
-  String _title = "";
-  String _description = "";
-  String _no = "";
-  Image theImage;
 
   @override
   void initState() {
@@ -44,17 +37,6 @@ class _DetailMenuState extends State<DetailMenu>
 
   @override
   Widget build(BuildContext context) {
-    // var data = _query.getMenu(widget.id);
-
-    setState(() {
-      // theImage = Image.network(
-      //   data.imgUrl,
-      //   fit: BoxFit.cover,
-      // );
-      // precacheImage(theImage.image, context);
-      // _title = data.name;
-      // _description = data.description;
-    });
     return Scaffold(
         body: DefaultTabController(
       // Added
@@ -121,54 +103,5 @@ class _DetailMenuState extends State<DetailMenu>
         },
       ),
     ));
-  }
-}
-
-class IngredientsView extends StatelessWidget {
-  final List<dynamic> ingredients;
-
-  IngredientsView(this.ingredients);
-
-  @override
-  Widget build(BuildContext context) {
-    List<Widget> children = new List<Widget>();
-    ingredients.forEach((item) {
-      children.add(
-        Row(
-          children: <Widget>[
-            new Icon(Icons.done),
-            new SizedBox(width: 5.0),
-            Expanded(child: Text(item)),
-          ],
-        ),
-      );
-      // Add spacing between the lines:
-      children.add(
-        new SizedBox(
-          height: 5.0,
-        ),
-      );
-    });
-    return SafeArea(
-        top: false,
-        bottom: false,
-        child: ListView(
-          padding: EdgeInsets.fromLTRB(25.0, 25.0, 25.0, 75.0),
-          children: children,
-        ));
-  }
-}
-
-class DescriptionView extends StatelessWidget {
-  final String description;
-
-  DescriptionView(this.description);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.fromLTRB(25.0, 25.0, 25.0, 75.0),
-      child: Text(description),
-    );
   }
 }

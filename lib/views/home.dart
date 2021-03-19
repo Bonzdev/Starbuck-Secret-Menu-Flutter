@@ -1,13 +1,14 @@
+import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fab_circular_menu/fab_circular_menu.dart';
-import 'package:flutter/material.dart';
 import 'package:starbucksecret/models/Menu.dart';
-import 'package:starbucksecret/views/components/text_view.dart';
 import 'package:starbucksecret/configuration.dart';
-import 'package:flutter/foundation.dart';
-import 'package:starbucksecret/dao/menuDao.dart';
-import 'dart:math';
 import 'package:starbucksecret/helpers/global_helper.dart';
+import 'package:flutter/foundation.dart';
+import 'package:starbucksecret/dao/menu_dao.dart';
+import 'dart:math';
+import 'package:starbucksecret/views/components/text_view.dart';
+import 'package:starbucksecret/views/components/choice_card.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);
@@ -17,13 +18,9 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   TextEditingController _controller = new TextEditingController();
-
-  List<Map<dynamic, dynamic>> lists = [];
-
   MenuDao _query = new MenuDao();
   List<String> listID = [];
   String search = '';
-  //firestore
 
   @override
   void initState() {
@@ -58,8 +55,6 @@ class _HomePageState extends State<HomePage> {
                           title: Text('Share your recipe'),
                           content: RichText(
                             text: new TextSpan(
-                              // Note: Styles for TextSpans must be explicitly defined.
-                              // Child text spans will inherit styles from parent
                               style: new TextStyle(
                                 fontSize: 14.0,
                                 color: Colors.black,
@@ -82,6 +77,7 @@ class _HomePageState extends State<HomePage> {
             IconButton(
                 icon: Icon(Icons.casino, color: Colors.white),
                 onPressed: () {
+                  // random menu
                   var random = new Random();
                   var randomID = listID[random.nextInt(listID.length)];
                   Navigator.pushNamed(context, '/menu-detail',
@@ -98,7 +94,7 @@ class _HomePageState extends State<HomePage> {
           ]),
       appBar: AppBar(
           title: Text(
-        "Starbucks Secret Menu",
+        appTitle,
         style: TextStyle(color: Colors.white),
       )),
       body: Container(
@@ -137,61 +133,5 @@ class _HomePageState extends State<HomePage> {
             ],
           )),
     );
-  }
-}
-
-class ChoiceCard extends StatelessWidget {
-  const ChoiceCard(
-      {Key key, this.onTap, @required this.menu, @required this.idx})
-      : super(key: key);
-  final VoidCallback onTap;
-  final Menu menu;
-  final String idx;
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-        elevation: 2.0,
-        color: Colors.white,
-        child: InkWell(
-            onTap: () {
-              Navigator.pushNamed(context, '/menu-detail', arguments: idx);
-            },
-            child: Row(
-              children: <Widget>[
-                new Container(
-                    padding: const EdgeInsets.all(8.0),
-                    alignment: Alignment.topLeft,
-                    child: Image.network(
-                      menu.imgUrl,
-                      height: 50,
-                    )),
-                Container(
-                  padding: EdgeInsets.all(8.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        menu.name,
-                        textAlign: TextAlign.left,
-                        maxLines: 5,
-                      ),
-                      Container(
-                        padding: EdgeInsets.all(4.0),
-                        decoration: new BoxDecoration(
-                            color: colorPrimaryDark,
-                            borderRadius: BorderRadius.circular(10)),
-                        constraints:
-                            BoxConstraints(minWidth: 14, minHeight: 14),
-                        child: Text(
-                          menu.type,
-                          style: TextStyle(color: Colors.white, fontSize: 13),
-                        ),
-                      )
-                    ],
-                  ),
-                )
-              ],
-              crossAxisAlignment: CrossAxisAlignment.start,
-            )));
   }
 }

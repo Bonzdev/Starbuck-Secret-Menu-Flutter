@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:starbucksecret/views/home.dart';
-import 'package:starbucksecret/views/detailMenu.dart';
+import 'package:starbucksecret/views/detail_menu.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
   switch (settings.name) {
