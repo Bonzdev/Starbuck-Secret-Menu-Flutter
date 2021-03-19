@@ -61,10 +61,7 @@ class _DetailMenuState extends State<DetailMenu>
       length: 2, // Added
       initialIndex: 0,
       child: StreamBuilder(
-        stream: FirebaseFirestore.instance
-            .collection('menus')
-            .doc(widget.id)
-            .snapshots(),
+        stream: _query.getMenus(widget.id),
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
             return Center(child: CircularProgressIndicator());

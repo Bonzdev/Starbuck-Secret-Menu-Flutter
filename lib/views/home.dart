@@ -18,22 +18,20 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   TextEditingController _controller = new TextEditingController();
-  final FirebaseFirestore firestore = FirebaseFirestore.instance;
-  DatabaseReference _menuRef;
-  final _menusRef = FirebaseDatabase.instance.reference().child('menus');
-  List<Menu> _menus = [];
+
   List<Map<dynamic, dynamic>> lists = [];
 
   MenuDao _query = new MenuDao();
-  List<Menu> _menu = [];
-
+  List<Menu> _menus = [];
+  var queryResultSet = [];
+  var tempSearchStore = [];
+  String search = '';
   //firestore
 
   @override
   void initState() {
     super.initState();
     final FirebaseDatabase database = FirebaseDatabase.instance;
-    _menus = _query.getAllMenu();
 
     // _menuRef = database.reference().child('menus');
 
@@ -42,15 +40,47 @@ class _HomePageState extends State<HomePage> {
   }
 
   //
+  initiateSearch(value) {
+    if (value.length == 0) {
+      setState(() {
+        queryResultSet = [];
+        tempSearchStore = [];
+      });
+    }
+
+    var capitalizedValue =
+        value.substring(0, 1).toUpperCase() + value.substring(1);
+    if (queryResultSet.length == 0 && value.length == 1) {
+      // _query.searchByName(value).then((QuerySnapshot docs) {
+      //   for (int i = 0; i < docs.docs.length; ++i) {
+      //     queryResultSet.add(docs.docs[i].data);
+      //   }
+      //   print(queryResultSet);
+      // });
+      print("masuk1");
+    } else {
+      tempSearchStore = [];
+      queryResultSet.forEach((element) {
+        if (element['businessName'].startsWith(capitalizedValue)) {
+          setState(() {
+            tempSearchStore.add(element);
+          });
+        }
+      });
+    }
+  }
 
   onSearchTextChanged(String text) async {
     setState(() {
-      _menus = _query
-          .getAllMenu()
-          .where((element) =>
-              element.name.toLowerCase().contains(text.toLowerCase()))
-          .toList();
+      search = text;
     });
+    // setState(() {
+    //   _menus = _query
+    //       .getAllMenu()
+    //       .where((element) =>
+    //           element.name.toLowerCase().contains(text.toLowerCase()))
+    //       .toList();
+    // });
   }
 
   @override
@@ -132,9 +162,7 @@ class _HomePageState extends State<HomePage> {
               ),
               Expanded(
                 child: StreamBuilder(
-                  stream: FirebaseFirestore.instance
-                      .collection("menus")
-                      .snapshots(),
+                  stream: _query.queryByName(search),
                   builder: (BuildContext context,
                       AsyncSnapshot<QuerySnapshot> snapshot) {
                     if (!snapshot.hasData) {

@@ -14,22 +14,41 @@ class MenuDao {
     Menu("candi2 Cane Frappucino", "ss", "", "Frappucino",
         "https://assets.rebelmouse.io/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpbWFnZSI6Imh0dHBzOi8vYXNzZXRzLnJibC5tcy8xODMxMjEwOC9vcmlnaW4uanBnIiwiZXhwaXJlc19hdCI6MTY1OTA1MTUzNH0.dDjYX4M1Cd7LyZz9HmD3sK7G7JmOc5XQZ9IO7uXdt-Q/img.jpg?width=980")
   ];
-  List<Menu> getAllMenu() {
-    return menus;
+  Stream<QuerySnapshot> getAllMenu() {
+    return FirebaseFirestore.instance.collection("menus").snapshots();
   }
-
-  // Future<List<SongModel>> getKategoriSong(String kategori) async {
-  //   var db = await instance.database;
-  //   var res = await db.rawQuery(
-  //       "select * from doding where kategori = '$kategori' order by no");
-  //   List<SongModel> list =
-  //       res.isNotEmpty ? res.map((c) => SongModel.fromJson(c)).toList() : null;
-  //   return list;
-  // }
 
   Menu getMenu(String id) {
     Menu menu = menus[0];
     return menu;
+  }
+
+  searchByName(String searchText) {
+    return FirebaseFirestore.instance
+        .collection('menus')
+        .orderBy('name')
+        .startAt([searchText])
+        .endAt([searchText + '\uf8ff'])
+        .limit(100)
+        .snapshots();
+  }
+
+  List<Menu> _userListFromQuerySnapshot(QuerySnapshot snapshot) {
+    return snapshot.docs.map((doc) {
+      return Menu.fromQueryDocumentSnapshot(doc);
+    }).toList();
+  }
+
+// Stream<List<Menu>>
+  queryByName(search) {
+    return FirebaseFirestore.instance
+        .collection("menus")
+        .orderBy("name")
+        .startAt([search])
+        .endAt([search + '\uf8ff'])
+        .limit(10)
+        .snapshots();
+    // .map(_userListFromQuerySnapshot);
   }
 
   Stream<DocumentSnapshot> getMenus(String id) {
