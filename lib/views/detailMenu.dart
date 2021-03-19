@@ -1,8 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
 import 'package:starbucksecret/configuration.dart';
 import 'package:starbucksecret/dao/menuDao.dart';
+import 'package:starbucksecret/models/Menu.dart';
 import 'package:starbucksecret/views/components/menu_title.dart';
 
 class DetailMenu extends StatefulWidget {
@@ -58,59 +60,75 @@ class _DetailMenuState extends State<DetailMenu>
       // Added
       length: 2, // Added
       initialIndex: 0,
-      child: NestedScrollView(
-          controller: _scrollController,
-          headerSliverBuilder:
-              (BuildContext context, bool innerViewIsScrolled) {
-            return <Widget>[
-              SliverAppBar(
-                backgroundColor: Colors.white,
-                flexibleSpace: FlexibleSpaceBar(
-                  collapseMode: CollapseMode.pin,
-                  background: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      AspectRatio(
-                        aspectRatio: 16.0 / 9.0,
-                        child: theImage,
+      child: StreamBuilder(
+        stream: FirebaseFirestore.instance
+            .collection('menus')
+            .doc(widget.id)
+            .snapshots(),
+        builder: (context, snapshot) {
+          if (!snapshot.hasData) {
+            return Center(child: CircularProgressIndicator());
+          }
+          var document = snapshot.data;
+          return NestedScrollView(
+              controller: _scrollController,
+              headerSliverBuilder:
+                  (BuildContext context, bool innerViewIsScrolled) {
+                return <Widget>[
+                  SliverAppBar(
+                    backgroundColor: Colors.white,
+                    flexibleSpace: FlexibleSpaceBar(
+                      collapseMode: CollapseMode.pin,
+                      background: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          AspectRatio(
+                            aspectRatio: 16.0 / 9.0,
+                            child: Image.network(
+                              document['imgurl'],
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                          MenuTitle(
+                              Menu.fromQueryDocumentSnapshot(document), 25.0),
+                        ],
                       ),
-                      MenuTitle(data, 25.0),
-                    ],
-                  ),
-                ),
-                expandedHeight: 340.0,
-                pinned: true,
-                floating: true,
-                elevation: 2.0,
-                forceElevated: innerViewIsScrolled,
-                bottom: TabBar(
-                  unselectedLabelColor: grayColor,
-                  labelColor: colorPrimaryDark,
-                  indicatorWeight: 2,
-                  indicatorColor: colorPrimaryDark,
-                  tabs: <Widget>[
-                    Tab(text: "Description"),
-                    Tab(text: "Recipe"),
-                  ],
-                  controller: _tabController,
-                ),
-              )
-            ];
-          },
-          body: TabBarView(
-            physics: BouncingScrollPhysics(),
-            children: <Widget>[
-              DescriptionView(data.description),
-              IngredientsView(data.recipe.split("|")),
-            ],
-            controller: _tabController,
-          )),
+                    ),
+                    expandedHeight: 340.0,
+                    pinned: true,
+                    floating: true,
+                    elevation: 2.0,
+                    forceElevated: innerViewIsScrolled,
+                    bottom: TabBar(
+                      unselectedLabelColor: grayColor,
+                      labelColor: colorPrimaryDark,
+                      indicatorWeight: 2,
+                      indicatorColor: colorPrimaryDark,
+                      tabs: <Widget>[
+                        Tab(text: "Description"),
+                        Tab(text: "Recipe"),
+                      ],
+                      controller: _tabController,
+                    ),
+                  )
+                ];
+              },
+              body: TabBarView(
+                physics: BouncingScrollPhysics(),
+                children: <Widget>[
+                  DescriptionView(document['description']),
+                  IngredientsView(document['recipe']),
+                ],
+                controller: _tabController,
+              ));
+        },
+      ),
     ));
   }
 }
 
 class IngredientsView extends StatelessWidget {
-  final List<String> ingredients;
+  final List<dynamic> ingredients;
 
   IngredientsView(this.ingredients);
 
