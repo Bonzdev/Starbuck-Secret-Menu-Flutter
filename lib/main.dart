@@ -6,7 +6,6 @@ import 'package:starbucksecret/utils/routes.dart' as router;
 import 'package:starbucksecret/views/home.dart';
 
 void main() async {
-  // readData();
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(MyApp());
@@ -26,7 +25,7 @@ class MyApp extends StatelessWidget {
       home: AnimatedSplashScreen(
         duration: 1000,
         backgroundColor: Colors.white,
-        splash: Icons.home,
+        splash: 'assets/starbucks.png',
         nextScreen: HomePage(),
         splashTransition: SplashTransition.fadeTransition,
       ),

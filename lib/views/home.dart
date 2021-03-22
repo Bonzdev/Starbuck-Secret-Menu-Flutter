@@ -34,7 +34,7 @@ class _HomePageState extends State<HomePage> {
 
   onSearchTextChanged(String text) async {
     setState(() {
-      search = text;
+      search = text.toLowerCase();
     });
   }
 

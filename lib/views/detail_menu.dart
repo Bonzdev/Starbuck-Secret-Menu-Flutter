@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:starbucksecret/configuration.dart';
 import 'package:starbucksecret/dao/menu_dao.dart';
@@ -63,9 +64,13 @@ class _DetailMenuState extends State<DetailMenu>
                         children: <Widget>[
                           AspectRatio(
                             aspectRatio: 16.0 / 9.0,
-                            child: Image.network(
-                              document['imgurl'],
+                            child: CachedNetworkImage(
                               fit: BoxFit.cover,
+                              imageUrl: document['imgurl'],
+                              placeholder: (context, url) =>
+                                  CircularProgressIndicator(),
+                              errorWidget: (context, url, error) =>
+                                  Icon(Icons.error),
                             ),
                           ),
                           MenuTitle(

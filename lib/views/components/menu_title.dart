@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:starbucksecret/helpers/global_helper.dart';
 
 import 'package:starbucksecret/models/Menu.dart';
 
@@ -18,7 +19,7 @@ class MenuTitle extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Text(
-            menu.name,
+            capitalize(menu.name),
             style: Theme.of(context).textTheme.title,
           ),
           // Empty space:
