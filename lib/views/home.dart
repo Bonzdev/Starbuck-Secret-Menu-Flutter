@@ -9,7 +9,9 @@ import 'package:starbucksecret/dao/menu_dao.dart';
 import 'dart:math';
 import 'package:starbucksecret/views/components/text_view.dart';
 import 'package:starbucksecret/views/components/choice_card.dart';
+import 'package:starbucksecret/views/components/carousel.dart';
 
+import 'components/grid_home.dart';
 class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);
   @override
@@ -40,6 +42,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+
+
     return Scaffold(
       floatingActionButton: FabCircularMenu(
           ringColor: colorPrimaryDark,
@@ -64,7 +68,7 @@ class _HomePageState extends State<HomePage> {
                                     text:
                                         'If you have a secret recipe you’d like to share, send it to '),
                                 new TextSpan(
-                                    text: 'codingcopy@gmail.com',
+                                    text: 'hi@medanincode.com',
                                     style: new TextStyle(
                                         fontWeight: FontWeight.bold,
                                         color: colorPrimaryDark)),
@@ -102,6 +106,8 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Carousel(),
+              GridDashboard(),
               OutlineTextView(
                 controller: _controller,
                 hintText: "Search Secret Menu",
