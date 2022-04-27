@@ -12,6 +12,7 @@ import 'package:starbucksecret/views/components/choice_card.dart';
 import 'package:starbucksecret/views/components/carousel.dart';
 
 import 'components/grid_home.dart';
+import 'components/top_home.dart';
 class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);
   @override
@@ -96,16 +97,13 @@ class _HomePageState extends State<HomePage> {
                   launchURL("https://www.buymeacoffee.com/secretsrecipe");
                 }),
           ]),
-      appBar: AppBar(
-          title: Text(
-        appTitle,
-        style: TextStyle(color: Colors.white),
-      )),
+      appBar: null,
       body: Container(
           padding: EdgeInsets.all(5.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              TopHome(),
               Carousel(),
               GridDashboard(),
               OutlineTextView(
