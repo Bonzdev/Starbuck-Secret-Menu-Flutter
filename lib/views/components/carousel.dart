@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class Carousel extends StatelessWidget {
   final List<String> imgList = [
@@ -20,8 +21,6 @@ class Carousel extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final List<Widget> imageSliders = imgList.map((item) => Container(
-      child: Container(
-        margin: EdgeInsets.all(5.0),
         child: ClipRRect(
             borderRadius: BorderRadius.all(Radius.circular(5.0)),
             child: Stack(
@@ -57,15 +56,44 @@ class Carousel extends StatelessWidget {
               ],
             )),
       ),
-    ))
-        .toList();
-    return  CarouselSlider(
-      options: CarouselOptions(
-        autoPlay: true,
-        aspectRatio: 2.0,
-        enlargeCenterPage: true,
-      ),
-      items: imageSliders,
+    ).toList();
+    return  Container(
+        margin:EdgeInsets.only(bottom: 20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+              margin:EdgeInsets.only(left: 20, right:10,bottom: 10),
+              child:
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children:  <Widget>[
+                Icon(
+                  Icons.auto_awesome,
+                  color: Colors.amberAccent,
+                  size: 20.0,
+                ),
+                  SizedBox(width: 3),
+                  Text("Promotions",style: GoogleFonts.openSans(
+                    textStyle: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),)
+                ],
+              )
+
+          ),
+          CarouselSlider(
+            options: CarouselOptions(
+              autoPlay: true,
+              aspectRatio: 2.0,
+              enlargeCenterPage: true,
+            ),
+            items: imageSliders,
+          )
+        ]
+      )
     );
   }
 }

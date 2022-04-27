@@ -99,7 +99,7 @@ class _HomePageState extends State<HomePage> {
           ]),
       appBar: null,
       body: Container(
-          padding: EdgeInsets.all(5.0),
+
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
