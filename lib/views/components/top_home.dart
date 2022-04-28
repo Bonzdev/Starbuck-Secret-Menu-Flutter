@@ -3,7 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 class TopHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(margin:EdgeInsets.only(left: 20, right:10),padding: EdgeInsets.only(top: 50,bottom: 30),child: Row(
+    return Container(margin:EdgeInsets.only(left: 20, right:10),padding: EdgeInsets.only(top: 50,bottom: 15),child: Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: <Widget>[
         Expanded(
@@ -15,7 +15,7 @@ class TopHome extends StatelessWidget {
               children: <Widget>[
                 Container(child: Text("Good Morning",style: GoogleFonts.openSans(
                   textStyle: TextStyle(
-                    fontSize: 28,
+                    fontSize: 24,
                     fontWeight: FontWeight.w600,
                   ),
                 ),)),
@@ -34,7 +34,7 @@ class TopHome extends StatelessWidget {
         Expanded(
           flex: 2,
           child: Container(
-            child: Image.network('https://res.cloudinary.com/bonzdev/image/upload/v1651057114/eastwood-starbucks_fyamqz.png', height: 100,
+            child: Image.network('https://res.cloudinary.com/bonzdev/image/upload/v1651057114/eastwood-starbucks_fyamqz.png', height: 80,
                 width: MediaQuery.of(context).size.width,
                 fit:BoxFit.contain)
           ),

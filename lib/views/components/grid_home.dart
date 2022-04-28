@@ -6,37 +6,37 @@ class GridDashboard extends StatelessWidget {
       title: "Calendar",
       subtitle: "March, Wednesday",
       event: "3 Events",
-      img: "images/calendar.png");
+      img: "https://res.cloudinary.com/bonzdev/image/upload/v1651123181/category/tea_updated_o8cvnw.png");
 
   Items item2 = new Items(
     title: "Groceries",
     subtitle: "Bocali, Apple",
     event: "4 Items",
-    img: "images/food.png",
+    img: "https://res.cloudinary.com/bonzdev/image/upload/v1651123181/category/tea_updated_o8cvnw.png",
   );
   Items item3 = new Items(
     title: "Locations",
     subtitle: "Lucy Mao going to Office",
     event: "",
-    img: "images/map.png",
+    img: "https://res.cloudinary.com/bonzdev/image/upload/v1651123181/category/tea_updated_o8cvnw.png",
   );
   Items item4 = new Items(
     title: "Activity",
     subtitle: "Rose favirited your Post",
     event: "",
-    img: "images/festival.png",
+    img: "https://res.cloudinary.com/bonzdev/image/upload/v1651123181/category/tea_updated_o8cvnw.png",
   );
   Items item5 = new Items(
     title: "To do",
     subtitle: "Homework, Design",
     event: "4 Items",
-    img: "images/todo.png",
+    img: "https://res.cloudinary.com/bonzdev/image/upload/v1651123181/category/tea_updated_o8cvnw.png",
   );
   Items item6 = new Items(
     title: "Settings",
     subtitle: "",
     event: "2 Items",
-    img: "images/setting.png",
+    img: "https://res.cloudinary.com/bonzdev/image/upload/v1651123181/category/tea_updated_o8cvnw.png",
   );
 
   @override
@@ -48,8 +48,8 @@ class GridDashboard extends StatelessWidget {
         childAspectRatio: 1.0,
         padding: EdgeInsets.only(left: 16, right: 16),
         crossAxisCount: 2,
-        crossAxisSpacing: 18,
-        mainAxisSpacing: 18,
+        crossAxisSpacing: 12,
+        mainAxisSpacing: 12,
         children: myList.map((data) {
           return Container(
             decoration: BoxDecoration(
@@ -59,10 +59,10 @@ class GridDashboard extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Image.asset(data.img, width: 42),
-                SizedBox(height: 14),
+                Image.network(data.img, width: 100),
                 Text(
                   data.title,
+
                   style: GoogleFonts.openSans(
                     textStyle: TextStyle(
                       color: Colors.white,
@@ -71,7 +71,6 @@ class GridDashboard extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(height: 8),
                 Text(
                   data.subtitle,
                   style: GoogleFonts.openSans(
@@ -81,18 +80,7 @@ class GridDashboard extends StatelessWidget {
                       fontWeight: FontWeight.w600,
                     ),
                   ),
-                ),
-                SizedBox(height: 14),
-                Text(
-                  data.event,
-                  style: GoogleFonts.openSans(
-                    textStyle: TextStyle(
-                      color: Colors.white70,
-                      fontSize: 11,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ),
+                )
               ],
             ),
           );
