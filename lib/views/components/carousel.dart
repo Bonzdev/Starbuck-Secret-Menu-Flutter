@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class Carousel extends StatelessWidget {
@@ -16,74 +16,74 @@ class Carousel extends StatelessWidget {
     fit: BoxFit.cover,
   );
 
-
   @override
   Widget build(BuildContext context) {
-
-    final List<Widget> imageSliders = imgList.map((item) => Container(
-        child: ClipRRect(
-            borderRadius: BorderRadius.all(Radius.circular(5.0)),
-            child: Stack(
-              children: <Widget>[
-                Image.network(item, fit: BoxFit.cover, width: 1000.0),
-                Positioned(
-                  bottom: 0.0,
-                  left: 0.0,
-                  right: 0.0,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [
-                          Color.fromARGB(200, 0, 0, 0),
-                          Color.fromARGB(0, 0, 0, 0)
-                        ],
-                        begin: Alignment.bottomCenter,
-                        end: Alignment.topCenter,
+    final List<Widget> imageSliders = imgList
+        .map(
+          (item) => Container(
+            child: ClipRRect(
+                borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                child: Stack(
+                  children: <Widget>[
+                    Image.network(item, fit: BoxFit.cover, width: 1000.0),
+                    Positioned(
+                      bottom: 0.0,
+                      left: 0.0,
+                      right: 0.0,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            colors: [
+                              Color.fromARGB(200, 0, 0, 0),
+                              Color.fromARGB(0, 0, 0, 0)
+                            ],
+                            begin: Alignment.bottomCenter,
+                            end: Alignment.topCenter,
+                          ),
+                        ),
+                        padding: EdgeInsets.symmetric(
+                            vertical: 10.0, horizontal: 10.0),
+                        child: Text(
+                          'No. ${imgList.indexOf(item)} image',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ),
                     ),
-                    padding: EdgeInsets.symmetric(
-                        vertical: 10.0, horizontal: 10.0),
-                    child: Text(
-                      'No. ${imgList.indexOf(item)} image',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20.0,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            )),
-      ),
-    ).toList();
-    return  Container(
-        margin:EdgeInsets.only(bottom: 20),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-              margin:EdgeInsets.only(left: 20, right:10,bottom: 10),
-              child:
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children:  <Widget>[
-                Icon(
-                  Icons.auto_awesome,
-                  color: Colors.amberAccent,
-                  size: 20.0,
-                ),
-                  SizedBox(width: 3),
-                  Text("Promotions",style: GoogleFonts.openSans(
-                    textStyle: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),)
-                ],
-              )
-
+                  ],
+                )),
           ),
+        )
+        .toList();
+    return Container(
+        margin: EdgeInsets.only(bottom: 20),
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          Container(
+              margin: EdgeInsets.only(left: 20, right: 10, bottom: 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  Icon(
+                    Icons.auto_awesome,
+                    color: Colors.amberAccent,
+                    size: 20.0,
+                  ),
+                  SizedBox(width: 3),
+                  Text(
+                    "Promotions",
+                    style: GoogleFonts.openSans(
+                      textStyle: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  )
+                ],
+              )),
           CarouselSlider(
             options: CarouselOptions(
               autoPlay: true,
@@ -92,8 +92,6 @@ class Carousel extends StatelessWidget {
             ),
             items: imageSliders,
           )
-        ]
-      )
-    );
+        ]));
   }
 }

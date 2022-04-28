@@ -117,16 +117,16 @@ class _HomePageState extends State<HomePage> {
 class HeaderCurvedContainer extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
-    // Paint paint = Paint()..color = colorPrimaryDark;
+    Paint paint = Paint()..color = colorPrimaryDark;
     Path path = Path()
       ..relativeLineTo(0, 200)
       ..quadraticBezierTo(size.width / 2, 300.0, size.width, 200)
       ..relativeLineTo(0, -200)
       ..close();
     var rect = Offset.zero & size;
-    final paint = Paint()
-      ..shader = ui.Gradient.linear(rect.topLeft, rect.bottomRight,
-          [Color(0xff8f9275), Color(0xff4a5f55)], [0.1, 0.35]);
+    // final paint = Paint()
+    //   ..shader = ui.Gradient.linear(rect.topLeft, rect.bottomRight,
+    //       [Color(0xff8f9275), Color(0xff4a5f55)], [0.1, 0.35]);
     canvas.drawPath(path, paint);
   }
 

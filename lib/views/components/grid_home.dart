@@ -1,42 +1,49 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:starbucksecret/configuration.dart';
 
 class GridDashboard extends StatelessWidget {
   Items item1 = new Items(
       title: "Calendar",
       subtitle: "March, Wednesday",
       event: "3 Events",
-      img: "https://res.cloudinary.com/bonzdev/image/upload/v1651123181/category/tea_updated_o8cvnw.png");
+      img:
+          "https://res.cloudinary.com/bonzdev/image/upload/v1651123181/category/tea_updated_o8cvnw.png");
 
   Items item2 = new Items(
     title: "Groceries",
     subtitle: "Bocali, Apple",
     event: "4 Items",
-    img: "https://res.cloudinary.com/bonzdev/image/upload/v1651123181/category/tea_updated_o8cvnw.png",
+    img:
+        "https://res.cloudinary.com/bonzdev/image/upload/v1651123181/category/tea_updated_o8cvnw.png",
   );
   Items item3 = new Items(
     title: "Locations",
     subtitle: "Lucy Mao going to Office",
     event: "",
-    img: "https://res.cloudinary.com/bonzdev/image/upload/v1651123181/category/tea_updated_o8cvnw.png",
+    img:
+        "https://res.cloudinary.com/bonzdev/image/upload/v1651123181/category/tea_updated_o8cvnw.png",
   );
   Items item4 = new Items(
     title: "Activity",
     subtitle: "Rose favirited your Post",
     event: "",
-    img: "https://res.cloudinary.com/bonzdev/image/upload/v1651123181/category/tea_updated_o8cvnw.png",
+    img:
+        "https://res.cloudinary.com/bonzdev/image/upload/v1651123181/category/tea_updated_o8cvnw.png",
   );
   Items item5 = new Items(
     title: "To do",
     subtitle: "Homework, Design",
     event: "4 Items",
-    img: "https://res.cloudinary.com/bonzdev/image/upload/v1651123181/category/tea_updated_o8cvnw.png",
+    img:
+        "https://res.cloudinary.com/bonzdev/image/upload/v1651123181/category/tea_updated_o8cvnw.png",
   );
   Items item6 = new Items(
     title: "Settings",
     subtitle: "",
     event: "2 Items",
-    img: "https://res.cloudinary.com/bonzdev/image/upload/v1651123181/category/tea_updated_o8cvnw.png",
+    img:
+        "https://res.cloudinary.com/bonzdev/image/upload/v1651123181/category/tea_updated_o8cvnw.png",
   );
 
   @override
@@ -53,7 +60,7 @@ class GridDashboard extends StatelessWidget {
         children: myList.map((data) {
           return Container(
             decoration: BoxDecoration(
-              color: Color(color),
+              color: colorPrimaryDark,
               borderRadius: BorderRadius.circular(10),
             ),
             child: Column(
@@ -62,7 +69,6 @@ class GridDashboard extends StatelessWidget {
                 Image.network(data.img, width: 100),
                 Text(
                   data.title,
-
                   style: GoogleFonts.openSans(
                     textStyle: TextStyle(
                       color: Colors.white,
