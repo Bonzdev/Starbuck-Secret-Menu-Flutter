@@ -6,18 +6,18 @@ import 'package:flutter/material.dart';
 import 'package:starbucksecret/configuration.dart';
 import 'package:starbucksecret/dao/menu_dao.dart';
 import 'package:starbucksecret/helpers/global_helper.dart';
+import 'package:starbucksecret/views/components/carousel.dart';
 
-import 'components/carousel.dart';
 import 'components/grid_home.dart';
 import 'components/top_home.dart';
 
-class HomePage extends StatefulWidget {
-  HomePage({Key key}) : super(key: key);
+class Home2Page extends StatefulWidget {
+  Home2Page({Key key}) : super(key: key);
   @override
-  _HomePageState createState() => _HomePageState();
+  _Home2PageState createState() => _Home2PageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _Home2PageState extends State<Home2Page> {
   TextEditingController _controller = new TextEditingController();
   MenuDao _query = new MenuDao();
   List<String> listID = [];
@@ -95,32 +95,22 @@ class _HomePageState extends State<HomePage> {
                   }),
             ]),
         appBar: null,
-        body: CustomScrollView(physics: PageScrollPhysics(), slivers: <Widget>[
+        body: CustomScrollView(slivers: <Widget>[
           SliverAppBar(
-            floating: false,
-            pinned: true,
-            expandedHeight: 150,
-            // collapsedHeight: 150,
-            title: Text('Dashboard'),
-            actions: [
-              CircleAvatar(
-                backgroundColor: Colors.transparent,
-                backgroundImage: NetworkImage(
-                    'https://i.pinimg.com/originals/da/51/c2/da51c26fe3398b0f8314fee17a98e0e7.jpg'),
-              ),
-              SizedBox(width: 10.0),
-            ],
-            flexibleSpace: FlexibleSpaceBar(background: TopHome()),
+            expandedHeight: 200,
+            flexibleSpace: FlexibleSpaceBar(
+              background: Container(color: Colors.green),
+            ),
           ),
           SliverList(
-            delegate:
-                SliverChildBuilderDelegate((BuildContext context, int index) {
-              return Column(
+            delegate: SliverChildListDelegate([
+              Container(
+                  child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: [Carousel(), GridDashboard()],
-              );
-            }, childCount: 1),
-          )
+                children: [TopHome(), Carousel(), GridDashboard()],
+              ))
+            ]),
+          ),
         ]));
   }
 }

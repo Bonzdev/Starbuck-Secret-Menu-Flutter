@@ -50,10 +50,13 @@ class GridDashboard extends StatelessWidget {
   Widget build(BuildContext context) {
     List<Items> myList = [item1, item2, item3, item4, item5, item6];
     var color = 0xff453658;
-    return Flexible(
+    return Container(
+      padding: const EdgeInsets.all(10.0),
       child: GridView.count(
         childAspectRatio: 1.0,
-        padding: EdgeInsets.only(left: 16, right: 16),
+        physics: NeverScrollableScrollPhysics(),
+        shrinkWrap: true,
+        padding: EdgeInsets.only(left: 10, right: 10),
         crossAxisCount: 2,
         crossAxisSpacing: 12,
         mainAxisSpacing: 12,
