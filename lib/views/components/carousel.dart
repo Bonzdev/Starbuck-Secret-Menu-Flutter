@@ -43,14 +43,6 @@ class Carousel extends StatelessWidget {
                         ),
                         padding: EdgeInsets.symmetric(
                             vertical: 10.0, horizontal: 10.0),
-                        child: Text(
-                          'No. ${imgList.indexOf(item)} image',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20.0,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
                       ),
                     ),
                   ],
@@ -59,7 +51,7 @@ class Carousel extends StatelessWidget {
         )
         .toList();
     return Container(
-        margin: EdgeInsets.only(bottom: 20),
+        margin: EdgeInsets.only(bottom: 20, top: 10),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Container(
               margin: EdgeInsets.only(left: 20, right: 10, bottom: 10),
@@ -76,7 +68,7 @@ class Carousel extends StatelessWidget {
                     "Promotions",
                     style: GoogleFonts.openSans(
                       textStyle: TextStyle(
-                        color: Colors.white,
+                        // color: Colors.white,
                         fontSize: 20,
                         fontWeight: FontWeight.w600,
                       ),

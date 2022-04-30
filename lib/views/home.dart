@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:fab_circular_menu/fab_circular_menu.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:starbucksecret/configuration.dart';
 import 'package:starbucksecret/dao/menu_dao.dart';
 import 'package:starbucksecret/helpers/global_helper.dart';
@@ -39,8 +40,20 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  String greeting() {
+    var hour = DateTime.now().hour;
+    if (hour < 12) {
+      return 'Morning';
+    }
+    if (hour < 17) {
+      return 'Afternoon';
+    }
+    return 'Evening';
+  }
+
   @override
   Widget build(BuildContext context) {
+    var top = 0.0;
     return Scaffold(
         floatingActionButton: FabCircularMenu(
             ringColor: colorPrimaryDark,
@@ -97,17 +110,26 @@ class _HomePageState extends State<HomePage> {
         appBar: null,
         body: CustomScrollView(physics: PageScrollPhysics(), slivers: <Widget>[
           SliverAppBar(
-            floating: false,
+            floating: true,
             pinned: true,
             expandedHeight: 150,
             // collapsedHeight: 150,
-            title: Text('Good Morning'),
-            actions: [
-              CircleAvatar(
-                backgroundColor: Colors.transparent,
-                backgroundImage: NetworkImage(
-                    'https://i.pinimg.com/originals/da/51/c2/da51c26fe3398b0f8314fee17a98e0e7.jpg'),
+            title: Text(
+              'Good ' + greeting(),
+              style: GoogleFonts.openSans(
+                textStyle: TextStyle(
+                  color: Colors.white,
+                  fontSize: 24,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
+            ),
+            actions: [
+              IconButton(
+                  icon: Icon(Icons.share, color: Colors.white),
+                  onPressed: () {
+                    launchURL("https://www.buymeacoffee.com/secretsrecipe");
+                  }),
               SizedBox(width: 10.0),
             ],
             flexibleSpace: FlexibleSpaceBar(background: TopHome()),

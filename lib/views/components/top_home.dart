@@ -5,8 +5,8 @@ class TopHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(left: 20, right: 10),
-      padding: EdgeInsets.only(top: 50, bottom: 15),
+      margin: EdgeInsets.only(left: 20, right: 10, top: 25),
+      padding: EdgeInsets.only(top: 40, bottom: 15),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
@@ -17,18 +17,18 @@ class TopHome extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Container(
-                      child: Text(
-                    "Good Morning",
-                    style: GoogleFonts.openSans(
-                      textStyle: TextStyle(
-                        color: Colors.white,
-                        fontSize: 24,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  )),
-                  SizedBox(height: 5.0),
+                  // Container(
+                  //     child: Text(
+                  //   "Good Morning",
+                  //   style: GoogleFonts.openSans(
+                  //     textStyle: TextStyle(
+                  //       color: Colors.white,
+                  //       fontSize: 24,
+                  //       fontWeight: FontWeight.w600,
+                  //     ),
+                  //   ),
+                  // )),
+                  SizedBox(height: 9.0),
                   Container(
                       child: Text(
                     "A good day starts with a good coffee.How do you want to start your day?",
