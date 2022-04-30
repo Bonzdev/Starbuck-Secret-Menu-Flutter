@@ -1,8 +1,14 @@
+import 'dart:developer';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:starbucksecret/configuration.dart';
+import 'package:starbucksecret/dao/category_dao.dart';
+import 'package:starbucksecret/models/Category.dart';
 
 class GridDashboard extends StatelessWidget {
+  CategoryDao _query = new CategoryDao();
   Items item1 = new Items(
       title: "Calendar",
       subtitle: "March, Wednesday",
@@ -50,51 +56,61 @@ class GridDashboard extends StatelessWidget {
   Widget build(BuildContext context) {
     List<Items> myList = [item1, item2, item3, item4, item5, item6];
     var color = 0xff453658;
-    return Container(
-      padding: const EdgeInsets.all(10.0),
-      child: GridView.count(
-        childAspectRatio: 1.0,
-        physics: NeverScrollableScrollPhysics(),
-        shrinkWrap: true,
-        padding: EdgeInsets.only(left: 10, right: 10),
-        crossAxisCount: 2,
-        crossAxisSpacing: 12,
-        mainAxisSpacing: 12,
-        children: myList.map((data) {
-          return Container(
-            decoration: BoxDecoration(
-              color: colorPrimaryDark,
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Image.network(data.img, width: 100),
-                Text(
-                  data.title,
-                  style: GoogleFonts.openSans(
-                    textStyle: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
+    return StreamBuilder(
+      stream: _query.getAllCategory(),
+      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+        if (!snapshot.hasData) {
+          return Center(child: CircularProgressIndicator());
+        }
+
+        return Container(
+          padding: const EdgeInsets.all(10.0),
+          child: GridView.count(
+            childAspectRatio: 1.0,
+            physics: NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            padding: EdgeInsets.only(left: 10, right: 10),
+            crossAxisCount: 2,
+            crossAxisSpacing: 12,
+            mainAxisSpacing: 12,
+            children: snapshot.data.docs.map((DocumentSnapshot document) {
+              Category data = Category.fromQueryDocumentSnapshot(document);
+              return Container(
+                decoration: BoxDecoration(
+                  color: colorPrimaryDark,
+                  borderRadius: BorderRadius.circular(10),
                 ),
-                Text(
-                  data.subtitle,
-                  style: GoogleFonts.openSans(
-                    textStyle: TextStyle(
-                      color: Colors.white38,
-                      fontSize: 10,
-                      fontWeight: FontWeight.w600,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Image.network(data.img, width: 100),
+                    Text(
+                      data.name,
+                      style: GoogleFonts.openSans(
+                        textStyle: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
                     ),
-                  ),
-                )
-              ],
-            ),
-          );
-        }).toList(),
-      ),
+                    Text(
+                      data.total,
+                      style: GoogleFonts.openSans(
+                        textStyle: TextStyle(
+                          color: Colors.white38,
+                          fontSize: 10,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              );
+            }).toList(),
+          ),
+        );
+      },
     );
   }
 }
