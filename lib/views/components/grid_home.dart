@@ -75,7 +75,11 @@ class GridDashboard extends StatelessWidget {
             mainAxisSpacing: 12,
             children: snapshot.data.docs.map((DocumentSnapshot document) {
               Category data = Category.fromQueryDocumentSnapshot(document);
-              return Container(
+              return InkWell(
+                  onTap: () {
+                Navigator.pushNamed(context, '/detail-category', arguments: data.name);
+              },
+              child:Container(
                 decoration: BoxDecoration(
                   color: colorPrimaryDark,
                   borderRadius: BorderRadius.circular(10),
@@ -95,10 +99,10 @@ class GridDashboard extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      data.total,
+                      data.total+ " Menus",
                       style: GoogleFonts.openSans(
                         textStyle: TextStyle(
-                          color: Colors.white38,
+                          color: kuningColor,
                           fontSize: 10,
                           fontWeight: FontWeight.w600,
                         ),
@@ -106,7 +110,7 @@ class GridDashboard extends StatelessWidget {
                     )
                   ],
                 ),
-              );
+              ));
             }).toList(),
           ),
         );

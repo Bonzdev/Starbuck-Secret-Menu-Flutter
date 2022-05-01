@@ -36,15 +36,18 @@ class ChoiceCard extends StatelessWidget {
                     errorWidget: (context, url, error) => Icon(Icons.error),
                   ),
                 ),
-                Container(
+                Expanded(child:Container(
                   padding: EdgeInsets.all(8.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
+
                         capitalize(menu.name),
                         textAlign: TextAlign.left,
-                        maxLines: 5,
+                        maxLines: 2,
+                          softWrap: false,
+                          overflow: TextOverflow.fade
                       ),
                       Container(
                         padding: EdgeInsets.all(4.0),
@@ -61,7 +64,7 @@ class ChoiceCard extends StatelessWidget {
                     ],
                   ),
                 )
-              ],
+                )],
               crossAxisAlignment: CrossAxisAlignment.start,
             )));
   }

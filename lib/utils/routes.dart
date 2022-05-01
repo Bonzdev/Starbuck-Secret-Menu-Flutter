@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:starbucksecret/views/detail_category.dart';
 import 'package:starbucksecret/views/home.dart';
 import 'package:starbucksecret/views/detail_menu.dart';
 
@@ -11,6 +12,11 @@ Route<dynamic> generateRoute(RouteSettings settings) {
           builder: (_) => DetailMenu(
                 id: settings.arguments,
               ));
+    case '/detail-category':
+      return MaterialPageRoute(
+          builder: (_) => DetailCategory(
+            category: settings.arguments,
+          ));
     //if want using page transition
     // return PageRouteBuilder(
     //     pageBuilder: (_, __, ___) => DetailMenu(

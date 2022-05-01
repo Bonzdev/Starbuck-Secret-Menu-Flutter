@@ -11,7 +11,8 @@ import 'package:starbucksecret/views/components/text_view.dart';
 import 'package:starbucksecret/views/components/choice_card.dart';
 
 class DetailCategory extends StatefulWidget {
-  DetailCategory({Key key}) : super(key: key);
+  final String category;
+  DetailCategory({Key key, this.category}) : super(key: key);
   @override
   _DetailCategoryState createState() => _DetailCategoryState();
 }
@@ -112,7 +113,7 @@ class _DetailCategoryState extends State<DetailCategory> {
               ),
               Expanded(
                 child: StreamBuilder(
-                  stream: _query.queryByName(search),
+                  stream: _query.queryByName(search,widget.category),
                   builder: (BuildContext context,
                       AsyncSnapshot<QuerySnapshot> snapshot) {
                     if (!snapshot.hasData) {

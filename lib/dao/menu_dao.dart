@@ -6,10 +6,11 @@ class MenuDao {
     return FirebaseFirestore.instance.collection("menus").snapshots();
   }
 
-  Stream<QuerySnapshot> queryByName(search) {
+  Stream<QuerySnapshot> queryByName(search,category) {
     return FirebaseFirestore.instance
         .collection("menus")
         .orderBy("name")
+        .where("category",isEqualTo: category)
         .startAt([search]).endAt([search + '\uf8ff']).snapshots();
   }
 
