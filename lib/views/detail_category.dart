@@ -23,6 +23,7 @@ class _DetailCategoryState extends State<DetailCategory> {
   List<String> listID = [];
   String search = '';
 
+
   @override
   void initState() {
     super.initState();
@@ -31,6 +32,7 @@ class _DetailCategoryState extends State<DetailCategory> {
         listID.add(element['id']);
       })
     });
+
   }
 
   onSearchTextChanged(String text) async {
@@ -95,7 +97,7 @@ class _DetailCategoryState extends State<DetailCategory> {
           ]),
       appBar: AppBar(
           title: Text(
-            appTitle,
+            widget.category,
             style: TextStyle(color: Colors.white),
           )),
       body: Container(

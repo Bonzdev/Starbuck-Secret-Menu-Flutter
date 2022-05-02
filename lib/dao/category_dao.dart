@@ -3,7 +3,7 @@ import 'package:starbucksecret/models/Category.dart';
 
 class CategoryDao {
   Stream<QuerySnapshot> getAllCategory() {
-    return FirebaseFirestore.instance.collection("categories").snapshots();
+    return FirebaseFirestore.instance.collection("categories").orderBy("position").snapshots();
   }
 
   Stream<QuerySnapshot> queryByName(search) {
